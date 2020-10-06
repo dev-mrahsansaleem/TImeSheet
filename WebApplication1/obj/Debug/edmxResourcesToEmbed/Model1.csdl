@@ -1,0 +1,446 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TIMESHEET_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="LookUp">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="cateegory" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Projects" Relationship="Self.FK__Projects__typeID__4E88ABD4" FromRole="LookUps" ToRole="Projects" />
+    <NavigationProperty Name="ProjectsAndUsers" Relationship="Self.FK__ProjectsA__statu__5535A963" FromRole="LookUps" ToRole="ProjectsAndUsers" />
+    <NavigationProperty Name="SheetStatus" Relationship="Self.FK__SheetStat__statu__5FB337D6" FromRole="LookUps" ToRole="SheetStatus" />
+    <NavigationProperty Name="TaskStatus" Relationship="Self.FK__TaskStatu__statu__6C190EBB" FromRole="LookUps" ToRole="TaskStatus" />
+    <NavigationProperty Name="Users" Relationship="Self.FK__Users__typeID__4BAC3F29" FromRole="LookUps" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="typeID" Type="Int32" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="creationDate" Type="DateTime" Precision="3" />
+    <Property Name="createdByID" Type="Int32" />
+    <Property Name="updationDate" Type="DateTime" Precision="3" />
+    <Property Name="updatedByID" Type="Int32" />
+    <NavigationProperty Name="LookUp" Relationship="Self.FK__Projects__typeID__4E88ABD4" FromRole="Projects" ToRole="LookUps" />
+    <NavigationProperty Name="User" Relationship="Self.FK__Projects__create__4F7CD00D" FromRole="Projects" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK__Projects__update__5070F446" FromRole="Projects" ToRole="Users" />
+    <NavigationProperty Name="ProjectsAndUsers" Relationship="Self.FK__ProjectsA__proje__5441852A" FromRole="Projects" ToRole="ProjectsAndUsers" />
+  </EntityType>
+  <EntityType Name="ProjectsAndUser">
+    <Key>
+      <PropertyRef Name="userID" />
+      <PropertyRef Name="projectID" />
+    </Key>
+    <Property Name="userID" Type="Int32" Nullable="false" />
+    <Property Name="projectID" Type="Int32" Nullable="false" />
+    <Property Name="statusID" Type="Int32" />
+    <Property Name="creationDate" Type="DateTime" Precision="3" />
+    <Property Name="createdByID" Type="Int32" />
+    <Property Name="updationDate" Type="DateTime" Precision="3" />
+    <Property Name="updatedByID" Type="Int32" />
+    <NavigationProperty Name="LookUp" Relationship="Self.FK__ProjectsA__statu__5535A963" FromRole="ProjectsAndUsers" ToRole="LookUps" />
+    <NavigationProperty Name="Project" Relationship="Self.FK__ProjectsA__proje__5441852A" FromRole="ProjectsAndUsers" ToRole="Projects" />
+    <NavigationProperty Name="User" Relationship="Self.FK__ProjectsA__creat__5629CD9C" FromRole="ProjectsAndUsers" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK__ProjectsA__updat__571DF1D5" FromRole="ProjectsAndUsers" ToRole="Users" />
+    <NavigationProperty Name="User2" Relationship="Self.FK__ProjectsA__userI__534D60F1" FromRole="ProjectsAndUsers" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Sheet">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="userID" Type="Int32" />
+    <Property Name="weekNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="creationDate" Type="DateTime" Precision="3" />
+    <Property Name="createdByID" Type="Int32" />
+    <Property Name="updationDate" Type="DateTime" Precision="3" />
+    <Property Name="updatedByID" Type="Int32" />
+    <NavigationProperty Name="User" Relationship="Self.FK__Sheets__createdB__5AEE82B9" FromRole="Sheets" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK__Sheets__updatedB__5BE2A6F2" FromRole="Sheets" ToRole="Users" />
+    <NavigationProperty Name="User2" Relationship="Self.FK__Sheets__userID__59FA5E80" FromRole="Sheets" ToRole="Users" />
+    <NavigationProperty Name="SheetStatus" Relationship="Self.FK__SheetStat__sheet__5EBF139D" FromRole="Sheets" ToRole="SheetStatus" />
+  </EntityType>
+  <EntityType Name="SheetStatu">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="sheetID" Type="Int32" />
+    <Property Name="statusID" Type="Int32" />
+    <Property Name="creationDate" Type="DateTime" Precision="3" />
+    <Property Name="createdByID" Type="Int32" />
+    <Property Name="updationDate" Type="DateTime" Precision="3" />
+    <Property Name="updatedByID" Type="Int32" />
+    <NavigationProperty Name="LookUp" Relationship="Self.FK__SheetStat__statu__5FB337D6" FromRole="SheetStatus" ToRole="LookUps" />
+    <NavigationProperty Name="Sheet" Relationship="Self.FK__SheetStat__sheet__5EBF139D" FromRole="SheetStatus" ToRole="Sheets" />
+    <NavigationProperty Name="User" Relationship="Self.FK__SheetStat__creat__60A75C0F" FromRole="SheetStatus" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK__SheetStat__updat__619B8048" FromRole="SheetStatus" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TaskStatu">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="taskID" Type="Int32" />
+    <Property Name="statusID" Type="Int32" />
+    <Property Name="creationDate" Type="DateTime" Precision="3" />
+    <Property Name="createdByID" Type="Int32" />
+    <Property Name="updationDate" Type="DateTime" Precision="3" />
+    <Property Name="updatedByID" Type="Int32" />
+    <NavigationProperty Name="LookUp" Relationship="Self.FK__TaskStatu__statu__6C190EBB" FromRole="TaskStatus" ToRole="LookUps" />
+    <NavigationProperty Name="User" Relationship="Self.FK__TaskStatu__creat__6D0D32F4" FromRole="TaskStatus" ToRole="Users" />
+    <NavigationProperty Name="User1" Relationship="Self.FK__TaskStatu__updat__6E01572D" FromRole="TaskStatus" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="typeID" Type="Int32" />
+    <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="regNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="LookUp" Relationship="Self.FK__Users__typeID__4BAC3F29" FromRole="Users" ToRole="LookUps" />
+    <NavigationProperty Name="Projects" Relationship="Self.FK__Projects__create__4F7CD00D" FromRole="Users" ToRole="Projects" />
+    <NavigationProperty Name="Projects1" Relationship="Self.FK__Projects__update__5070F446" FromRole="Users" ToRole="Projects" />
+    <NavigationProperty Name="ProjectsAndUsers" Relationship="Self.FK__ProjectsA__creat__5629CD9C" FromRole="Users" ToRole="ProjectsAndUsers" />
+    <NavigationProperty Name="ProjectsAndUsers1" Relationship="Self.FK__ProjectsA__updat__571DF1D5" FromRole="Users" ToRole="ProjectsAndUsers" />
+    <NavigationProperty Name="ProjectsAndUsers2" Relationship="Self.FK__ProjectsA__userI__534D60F1" FromRole="Users" ToRole="ProjectsAndUsers" />
+    <NavigationProperty Name="Sheets" Relationship="Self.FK__Sheets__createdB__5AEE82B9" FromRole="Users" ToRole="Sheets" />
+    <NavigationProperty Name="Sheets1" Relationship="Self.FK__Sheets__updatedB__5BE2A6F2" FromRole="Users" ToRole="Sheets" />
+    <NavigationProperty Name="Sheets2" Relationship="Self.FK__Sheets__userID__59FA5E80" FromRole="Users" ToRole="Sheets" />
+    <NavigationProperty Name="SheetStatus" Relationship="Self.FK__SheetStat__creat__60A75C0F" FromRole="Users" ToRole="SheetStatus" />
+    <NavigationProperty Name="SheetStatus1" Relationship="Self.FK__SheetStat__updat__619B8048" FromRole="Users" ToRole="SheetStatus" />
+    <NavigationProperty Name="TaskStatus" Relationship="Self.FK__TaskStatu__creat__6D0D32F4" FromRole="Users" ToRole="TaskStatus" />
+    <NavigationProperty Name="TaskStatus1" Relationship="Self.FK__TaskStatu__updat__6E01572D" FromRole="Users" ToRole="TaskStatus" />
+  </EntityType>
+  <Association Name="FK__Projects__typeID__4E88ABD4">
+    <End Role="LookUps" Type="Self.LookUp" Multiplicity="0..1" />
+    <End Role="Projects" Type="Self.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LookUps">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Projects">
+        <PropertyRef Name="typeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProjectsA__statu__5535A963">
+    <End Role="LookUps" Type="Self.LookUp" Multiplicity="0..1" />
+    <End Role="ProjectsAndUsers" Type="Self.ProjectsAndUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LookUps">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProjectsAndUsers">
+        <PropertyRef Name="statusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SheetStat__statu__5FB337D6">
+    <End Role="LookUps" Type="Self.LookUp" Multiplicity="0..1" />
+    <End Role="SheetStatus" Type="Self.SheetStatu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LookUps">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SheetStatus">
+        <PropertyRef Name="statusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TaskStatu__statu__6C190EBB">
+    <End Role="LookUps" Type="Self.LookUp" Multiplicity="0..1" />
+    <End Role="TaskStatus" Type="Self.TaskStatu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LookUps">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TaskStatus">
+        <PropertyRef Name="statusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Users__typeID__4BAC3F29">
+    <End Role="LookUps" Type="Self.LookUp" Multiplicity="0..1" />
+    <End Role="Users" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LookUps">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Users">
+        <PropertyRef Name="typeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Projects__create__4F7CD00D">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Projects" Type="Self.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Projects">
+        <PropertyRef Name="createdByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Projects__update__5070F446">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Projects" Type="Self.Project" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Projects">
+        <PropertyRef Name="updatedByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProjectsA__proje__5441852A">
+    <End Role="Projects" Type="Self.Project" Multiplicity="1" />
+    <End Role="ProjectsAndUsers" Type="Self.ProjectsAndUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProjectsAndUsers">
+        <PropertyRef Name="projectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProjectsA__creat__5629CD9C">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="ProjectsAndUsers" Type="Self.ProjectsAndUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProjectsAndUsers">
+        <PropertyRef Name="createdByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProjectsA__updat__571DF1D5">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="ProjectsAndUsers" Type="Self.ProjectsAndUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProjectsAndUsers">
+        <PropertyRef Name="updatedByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProjectsA__userI__534D60F1">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="ProjectsAndUsers" Type="Self.ProjectsAndUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ProjectsAndUsers">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Sheets__createdB__5AEE82B9">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Sheets" Type="Self.Sheet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Sheets">
+        <PropertyRef Name="createdByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Sheets__updatedB__5BE2A6F2">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Sheets" Type="Self.Sheet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Sheets">
+        <PropertyRef Name="updatedByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Sheets__userID__59FA5E80">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Sheets" Type="Self.Sheet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Sheets">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SheetStat__sheet__5EBF139D">
+    <End Role="Sheets" Type="Self.Sheet" Multiplicity="0..1" />
+    <End Role="SheetStatus" Type="Self.SheetStatu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sheets">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SheetStatus">
+        <PropertyRef Name="sheetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SheetStat__creat__60A75C0F">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="SheetStatus" Type="Self.SheetStatu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SheetStatus">
+        <PropertyRef Name="createdByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SheetStat__updat__619B8048">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="SheetStatus" Type="Self.SheetStatu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SheetStatus">
+        <PropertyRef Name="updatedByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TaskStatu__creat__6D0D32F4">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="TaskStatus" Type="Self.TaskStatu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TaskStatus">
+        <PropertyRef Name="createdByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TaskStatu__updat__6E01572D">
+    <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+    <End Role="TaskStatus" Type="Self.TaskStatu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TaskStatus">
+        <PropertyRef Name="updatedByID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TIMESHEET_DBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="LookUps" EntityType="Self.LookUp" />
+    <EntitySet Name="Projects" EntityType="Self.Project" />
+    <EntitySet Name="ProjectsAndUsers" EntityType="Self.ProjectsAndUser" />
+    <EntitySet Name="Sheets" EntityType="Self.Sheet" />
+    <EntitySet Name="SheetStatus" EntityType="Self.SheetStatu" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="TaskStatus" EntityType="Self.TaskStatu" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK__Projects__typeID__4E88ABD4" Association="Self.FK__Projects__typeID__4E88ABD4">
+      <End Role="LookUps" EntitySet="LookUps" />
+      <End Role="Projects" EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProjectsA__statu__5535A963" Association="Self.FK__ProjectsA__statu__5535A963">
+      <End Role="LookUps" EntitySet="LookUps" />
+      <End Role="ProjectsAndUsers" EntitySet="ProjectsAndUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SheetStat__statu__5FB337D6" Association="Self.FK__SheetStat__statu__5FB337D6">
+      <End Role="LookUps" EntitySet="LookUps" />
+      <End Role="SheetStatus" EntitySet="SheetStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TaskStatu__statu__6C190EBB" Association="Self.FK__TaskStatu__statu__6C190EBB">
+      <End Role="LookUps" EntitySet="LookUps" />
+      <End Role="TaskStatus" EntitySet="TaskStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Users__typeID__4BAC3F29" Association="Self.FK__Users__typeID__4BAC3F29">
+      <End Role="LookUps" EntitySet="LookUps" />
+      <End Role="Users" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Projects__create__4F7CD00D" Association="Self.FK__Projects__create__4F7CD00D">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Projects" EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Projects__update__5070F446" Association="Self.FK__Projects__update__5070F446">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Projects" EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProjectsA__proje__5441852A" Association="Self.FK__ProjectsA__proje__5441852A">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="ProjectsAndUsers" EntitySet="ProjectsAndUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProjectsA__creat__5629CD9C" Association="Self.FK__ProjectsA__creat__5629CD9C">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ProjectsAndUsers" EntitySet="ProjectsAndUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProjectsA__updat__571DF1D5" Association="Self.FK__ProjectsA__updat__571DF1D5">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ProjectsAndUsers" EntitySet="ProjectsAndUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProjectsA__userI__534D60F1" Association="Self.FK__ProjectsA__userI__534D60F1">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ProjectsAndUsers" EntitySet="ProjectsAndUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Sheets__createdB__5AEE82B9" Association="Self.FK__Sheets__createdB__5AEE82B9">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Sheets" EntitySet="Sheets" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Sheets__updatedB__5BE2A6F2" Association="Self.FK__Sheets__updatedB__5BE2A6F2">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Sheets" EntitySet="Sheets" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Sheets__userID__59FA5E80" Association="Self.FK__Sheets__userID__59FA5E80">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Sheets" EntitySet="Sheets" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SheetStat__sheet__5EBF139D" Association="Self.FK__SheetStat__sheet__5EBF139D">
+      <End Role="Sheets" EntitySet="Sheets" />
+      <End Role="SheetStatus" EntitySet="SheetStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SheetStat__creat__60A75C0F" Association="Self.FK__SheetStat__creat__60A75C0F">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="SheetStatus" EntitySet="SheetStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SheetStat__updat__619B8048" Association="Self.FK__SheetStat__updat__619B8048">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="SheetStatus" EntitySet="SheetStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TaskStatu__creat__6D0D32F4" Association="Self.FK__TaskStatu__creat__6D0D32F4">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="TaskStatus" EntitySet="TaskStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TaskStatu__updat__6E01572D" Association="Self.FK__TaskStatu__updat__6E01572D">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="TaskStatus" EntitySet="TaskStatus" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

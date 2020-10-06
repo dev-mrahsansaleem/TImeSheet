@@ -1,0 +1,418 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="testModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblLookUps">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="20" />
+    <Property Name="cateegory" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="tblProjects">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="typeID" Type="int" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="description" Type="varchar" MaxLength="500" />
+    <Property Name="creationDate" Type="datetime" />
+    <Property Name="createdByID" Type="nvarchar" MaxLength="128" />
+    <Property Name="updationDate" Type="datetime" />
+    <Property Name="updatedByID" Type="nvarchar" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="tblProjectsAndUsers">
+    <Key>
+      <PropertyRef Name="userID" />
+      <PropertyRef Name="projectID" />
+    </Key>
+    <Property Name="userID" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="projectID" Type="int" Nullable="false" />
+    <Property Name="statusID" Type="int" />
+    <Property Name="creationDate" Type="datetime" />
+    <Property Name="createdByID" Type="nvarchar" MaxLength="128" />
+    <Property Name="updationDate" Type="datetime" />
+    <Property Name="updatedByID" Type="nvarchar" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="tblSheets">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="userID" Type="nvarchar" MaxLength="128" />
+    <Property Name="weekNo" Type="varchar" MaxLength="20" />
+    <Property Name="creationDate" Type="datetime" />
+    <Property Name="createdByID" Type="nvarchar" MaxLength="128" />
+    <Property Name="updationDate" Type="datetime" />
+    <Property Name="updatedByID" Type="nvarchar" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="tblSheetStatus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="sheetID" Type="int" />
+    <Property Name="statusID" Type="int" />
+    <Property Name="creationDate" Type="datetime" />
+    <Property Name="createdByID" Type="nvarchar" MaxLength="128" />
+    <Property Name="updationDate" Type="datetime" />
+    <Property Name="updatedByID" Type="nvarchar" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="tblTasks">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="sheetID" Type="int" />
+    <Property Name="parentOF" Type="int" />
+    <Property Name="typeID" Type="int" />
+    <Property Name="Title" Type="varchar" MaxLength="50" />
+    <Property Name="description" Type="varchar" MaxLength="200" />
+    <Property Name="hours" Type="int" />
+    <Property Name="creationDate" Type="datetime" />
+    <Property Name="createdByID" Type="nvarchar" MaxLength="128" />
+    <Property Name="updationDate" Type="datetime" />
+    <Property Name="updatedByID" Type="nvarchar" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="tblTaskStatus">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="taskID" Type="int" />
+    <Property Name="statusID" Type="int" />
+    <Property Name="creationDate" Type="datetime" />
+    <Property Name="createdByID" Type="nvarchar" MaxLength="128" />
+    <Property Name="updationDate" Type="datetime" />
+    <Property Name="updatedByID" Type="nvarchar" MaxLength="128" />
+  </EntityType>
+  <Association Name="FK__tblProjec__proje__2CF2ADDF">
+    <End Role="tblProjects" Type="Self.tblProjects" Multiplicity="1" />
+    <End Role="tblProjectsAndUsers" Type="Self.tblProjectsAndUsers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProjects">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblProjectsAndUsers">
+        <PropertyRef Name="projectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblProjec__statu__2DE6D218">
+    <End Role="tblLookUps" Type="Self.tblLookUps" Multiplicity="0..1" />
+    <End Role="tblProjectsAndUsers" Type="Self.tblProjectsAndUsers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLookUps">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblProjectsAndUsers">
+        <PropertyRef Name="statusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblProjec__typeI__29221CFB">
+    <End Role="tblLookUps" Type="Self.tblLookUps" Multiplicity="0..1" />
+    <End Role="tblProjects" Type="Self.tblProjects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLookUps">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblProjects">
+        <PropertyRef Name="typeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblProjec__userI__2BFE89A6">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="tblProjectsAndUsers" Type="Self.tblProjectsAndUsers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblProjectsAndUsers">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblSheetS__sheet__339FAB6E">
+    <End Role="tblSheets" Type="Self.tblSheets" Multiplicity="0..1" />
+    <End Role="tblSheetStatus" Type="Self.tblSheetStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSheets">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblSheetStatus">
+        <PropertyRef Name="sheetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblSheetS__statu__3493CFA7">
+    <End Role="tblLookUps" Type="Self.tblLookUps" Multiplicity="0..1" />
+    <End Role="tblSheetStatus" Type="Self.tblSheetStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLookUps">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblSheetStatus">
+        <PropertyRef Name="statusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblSheets__userI__30C33EC3">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="tblSheets" Type="Self.tblSheets" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblSheets">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblTasks__parent__3864608B">
+    <End Role="tblTasks" Type="Self.tblTasks" Multiplicity="0..1" />
+    <End Role="tblTasks1" Type="Self.tblTasks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblTasks">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblTasks1">
+        <PropertyRef Name="parentOF" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblTasks__sheetI__37703C52">
+    <End Role="tblSheets" Type="Self.tblSheets" Multiplicity="0..1" />
+    <End Role="tblTasks" Type="Self.tblTasks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSheets">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblTasks">
+        <PropertyRef Name="sheetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblTasks__typeID__395884C4">
+    <End Role="tblLookUps" Type="Self.tblLookUps" Multiplicity="0..1" />
+    <End Role="tblTasks" Type="Self.tblTasks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLookUps">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblTasks">
+        <PropertyRef Name="typeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblTaskSt__statu__3D2915A8">
+    <End Role="tblLookUps" Type="Self.tblLookUps" Multiplicity="0..1" />
+    <End Role="tblTaskStatus" Type="Self.tblTaskStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLookUps">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblTaskStatus">
+        <PropertyRef Name="statusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblTaskSt__taskI__3C34F16F">
+    <End Role="tblTasks" Type="Self.tblTasks" Multiplicity="0..1" />
+    <End Role="tblTaskStatus" Type="Self.tblTaskStatus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblTasks">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblTaskStatus">
+        <PropertyRef Name="taskID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="testModelStoreContainer">
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblLookUps" EntityType="Self.tblLookUps" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblProjects" EntityType="Self.tblProjects" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblProjectsAndUsers" EntityType="Self.tblProjectsAndUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblSheets" EntityType="Self.tblSheets" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblSheetStatus" EntityType="Self.tblSheetStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblTasks" EntityType="Self.tblTasks" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblTaskStatus" EntityType="Self.tblTaskStatus" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__tblProjec__proje__2CF2ADDF" Association="Self.FK__tblProjec__proje__2CF2ADDF">
+      <End Role="tblProjects" EntitySet="tblProjects" />
+      <End Role="tblProjectsAndUsers" EntitySet="tblProjectsAndUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblProjec__statu__2DE6D218" Association="Self.FK__tblProjec__statu__2DE6D218">
+      <End Role="tblLookUps" EntitySet="tblLookUps" />
+      <End Role="tblProjectsAndUsers" EntitySet="tblProjectsAndUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblProjec__typeI__29221CFB" Association="Self.FK__tblProjec__typeI__29221CFB">
+      <End Role="tblLookUps" EntitySet="tblLookUps" />
+      <End Role="tblProjects" EntitySet="tblProjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblProjec__userI__2BFE89A6" Association="Self.FK__tblProjec__userI__2BFE89A6">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="tblProjectsAndUsers" EntitySet="tblProjectsAndUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblSheetS__sheet__339FAB6E" Association="Self.FK__tblSheetS__sheet__339FAB6E">
+      <End Role="tblSheets" EntitySet="tblSheets" />
+      <End Role="tblSheetStatus" EntitySet="tblSheetStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblSheetS__statu__3493CFA7" Association="Self.FK__tblSheetS__statu__3493CFA7">
+      <End Role="tblLookUps" EntitySet="tblLookUps" />
+      <End Role="tblSheetStatus" EntitySet="tblSheetStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblSheets__userI__30C33EC3" Association="Self.FK__tblSheets__userI__30C33EC3">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="tblSheets" EntitySet="tblSheets" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblTasks__parent__3864608B" Association="Self.FK__tblTasks__parent__3864608B">
+      <End Role="tblTasks" EntitySet="tblTasks" />
+      <End Role="tblTasks1" EntitySet="tblTasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblTasks__sheetI__37703C52" Association="Self.FK__tblTasks__sheetI__37703C52">
+      <End Role="tblSheets" EntitySet="tblSheets" />
+      <End Role="tblTasks" EntitySet="tblTasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblTasks__typeID__395884C4" Association="Self.FK__tblTasks__typeID__395884C4">
+      <End Role="tblLookUps" EntitySet="tblLookUps" />
+      <End Role="tblTasks" EntitySet="tblTasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblTaskSt__statu__3D2915A8" Association="Self.FK__tblTaskSt__statu__3D2915A8">
+      <End Role="tblLookUps" EntitySet="tblLookUps" />
+      <End Role="tblTaskStatus" EntitySet="tblTaskStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblTaskSt__taskI__3C34F16F" Association="Self.FK__tblTaskSt__taskI__3C34F16F">
+      <End Role="tblTasks" EntitySet="tblTasks" />
+      <End Role="tblTaskStatus" EntitySet="tblTaskStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

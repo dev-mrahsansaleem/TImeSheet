@@ -1,0 +1,89 @@
+﻿@model List<WebApplication1.DBModel.tblProject>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Type ID</th>
+        <th>Description</th>
+    </tr>
+    @foreach (var student in Model)
+    {
+        <tr>
+            <td>@student.name</td>
+            <td>@student.typeID</td>
+            <td>@student.description</td>
+        </tr>
+    }
+</table>
+@*<div>
+    <h4>tblProject</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.creationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.creationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdByID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdByID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.updationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.updationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.updatedByID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.updatedByID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tblLookUp.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tblLookUp.name)
+        </dd>
+
+    </dl>
+</div>
+    
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@
