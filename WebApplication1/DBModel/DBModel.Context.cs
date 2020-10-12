@@ -32,9 +32,9 @@ namespace WebApplication1.DBModel
         public virtual DbSet<tblLookUp> tblLookUps { get; set; }
         public virtual DbSet<tblProject> tblProjects { get; set; }
         public virtual DbSet<tblProjectsAndUser> tblProjectsAndUsers { get; set; }
-        public virtual DbSet<tblSheet> tblSheets { get; set; }
         public virtual DbSet<tblSheetStatu> tblSheetStatus { get; set; }
-        public virtual DbSet<tblTask> tblTasks { get; set; }
         public virtual DbSet<tblTaskStatu> tblTaskStatus { get; set; }
+        public virtual DbSet<tblSheet> tblSheets { get; set; }
+        public virtual DbSet<tblTask> tblTasks { get; set; }
     }
 }

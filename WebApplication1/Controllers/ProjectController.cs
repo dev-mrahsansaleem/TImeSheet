@@ -7,6 +7,7 @@ using WebApplication1.DBModel;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize]
     public class ProjectController : Controller
     {
         // GET: Project

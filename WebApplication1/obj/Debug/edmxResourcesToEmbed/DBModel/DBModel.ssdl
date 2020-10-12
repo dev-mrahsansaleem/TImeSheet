@@ -89,7 +89,7 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="userID" Type="nvarchar" MaxLength="128" />
     <Property Name="weekNo" Type="varchar" MaxLength="20" />
     <Property Name="creationDate" Type="datetime" />
@@ -113,12 +113,12 @@
     <Key>
       <PropertyRef Name="ID" />
     </Key>
-    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="sheetID" Type="int" />
     <Property Name="parentOF" Type="int" />
     <Property Name="typeID" Type="int" />
-    <Property Name="Title" Type="varchar" MaxLength="50" />
-    <Property Name="description" Type="varchar" MaxLength="200" />
+    <Property Name="Title" Type="nvarchar(max)" />
+    <Property Name="description" Type="nvarchar" MaxLength="200" />
     <Property Name="hours" Type="int" />
     <Property Name="creationDate" Type="datetime" />
     <Property Name="createdByID" Type="nvarchar" MaxLength="128" />

@@ -20,8 +20,8 @@ namespace WebApplication1.DBModel
             this.tblProjectsAndUsers = new HashSet<tblProjectsAndUser>();
             this.tblProjects = new HashSet<tblProject>();
             this.tblSheetStatus = new HashSet<tblSheetStatu>();
-            this.tblTasks = new HashSet<tblTask>();
             this.tblTaskStatus = new HashSet<tblTaskStatu>();
+            this.tblTasks = new HashSet<tblTask>();
         }
     
         public int ID { get; set; }
@@ -35,8 +35,8 @@ namespace WebApplication1.DBModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblSheetStatu> tblSheetStatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblTask> tblTasks { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblTaskStatu> tblTaskStatus { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblTask> tblTasks { get; set; }
     }
 }

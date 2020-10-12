@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="testModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="testModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -94,7 +94,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="userID" Type="nvarchar" MaxLength="128" />
           <Property Name="weekNo" Type="varchar" MaxLength="20" />
           <Property Name="creationDate" Type="datetime" />
@@ -118,12 +118,12 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="sheetID" Type="int" />
           <Property Name="parentOF" Type="int" />
           <Property Name="typeID" Type="int" />
-          <Property Name="Title" Type="varchar" MaxLength="50" />
-          <Property Name="description" Type="varchar" MaxLength="200" />
+          <Property Name="Title" Type="nvarchar(max)" />
+          <Property Name="description" Type="nvarchar" MaxLength="200" />
           <Property Name="hours" Type="int" />
           <Property Name="creationDate" Type="datetime" />
           <Property Name="createdByID" Type="nvarchar" MaxLength="128" />
@@ -420,8 +420,7 @@
             <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="testModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -473,8 +472,8 @@
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
           <NavigationProperty Name="tblProjectsAndUsers" Relationship="Self.FK__tblProjec__userI__2BFE89A6" FromRole="AspNetUsers" ToRole="tblProjectsAndUsers" />
-          <NavigationProperty Name="tblSheets" Relationship="Self.FK__tblSheets__userI__30C33EC3" FromRole="AspNetUsers" ToRole="tblSheets" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="tblSheets" Relationship="testModel.FK__tblSheets__userI__30C33EC3" FromRole="AspNetUser" ToRole="tblSheet" />
         </EntityType>
         <EntityType Name="tblLookUp">
           <Key>
@@ -486,8 +485,8 @@
           <NavigationProperty Name="tblProjectsAndUsers" Relationship="Self.FK__tblProjec__statu__2DE6D218" FromRole="tblLookUps" ToRole="tblProjectsAndUsers" />
           <NavigationProperty Name="tblProjects" Relationship="Self.FK__tblProjec__typeI__29221CFB" FromRole="tblLookUps" ToRole="tblProjects" />
           <NavigationProperty Name="tblSheetStatus" Relationship="Self.FK__tblSheetS__statu__3493CFA7" FromRole="tblLookUps" ToRole="tblSheetStatus" />
-          <NavigationProperty Name="tblTasks" Relationship="Self.FK__tblTasks__typeID__395884C4" FromRole="tblLookUps" ToRole="tblTasks" />
           <NavigationProperty Name="tblTaskStatus" Relationship="Self.FK__tblTaskSt__statu__3D2915A8" FromRole="tblLookUps" ToRole="tblTaskStatus" />
+          <NavigationProperty Name="tblTasks" Relationship="testModel.FK__tblTasks__typeID__395884C4" FromRole="tblLookUp" ToRole="tblTask" />
         </EntityType>
         <EntityType Name="tblProject">
           <Key>
@@ -520,21 +519,6 @@
           <NavigationProperty Name="tblLookUp" Relationship="Self.FK__tblProjec__statu__2DE6D218" FromRole="tblProjectsAndUsers" ToRole="tblLookUps" />
           <NavigationProperty Name="tblProject" Relationship="Self.FK__tblProjec__proje__2CF2ADDF" FromRole="tblProjectsAndUsers" ToRole="tblProjects" />
         </EntityType>
-        <EntityType Name="tblSheet">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="userID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="weekNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="creationDate" Type="DateTime" Precision="3" />
-          <Property Name="createdByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="updationDate" Type="DateTime" Precision="3" />
-          <Property Name="updatedByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK__tblSheets__userI__30C33EC3" FromRole="tblSheets" ToRole="AspNetUsers" />
-          <NavigationProperty Name="tblSheetStatus" Relationship="Self.FK__tblSheetS__sheet__339FAB6E" FromRole="tblSheets" ToRole="tblSheetStatus" />
-          <NavigationProperty Name="tblTasks" Relationship="Self.FK__tblTasks__sheetI__37703C52" FromRole="tblSheets" ToRole="tblTasks" />
-        </EntityType>
         <EntityType Name="tblSheetStatu">
           <Key>
             <PropertyRef Name="ID" />
@@ -547,28 +531,7 @@
           <Property Name="updationDate" Type="DateTime" Precision="3" />
           <Property Name="updatedByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tblLookUp" Relationship="Self.FK__tblSheetS__statu__3493CFA7" FromRole="tblSheetStatus" ToRole="tblLookUps" />
-          <NavigationProperty Name="tblSheet" Relationship="Self.FK__tblSheetS__sheet__339FAB6E" FromRole="tblSheetStatus" ToRole="tblSheets" />
-        </EntityType>
-        <EntityType Name="tblTask">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="sheetID" Type="Int32" />
-          <Property Name="parentOF" Type="Int32" />
-          <Property Name="typeID" Type="Int32" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="hours" Type="Int32" />
-          <Property Name="creationDate" Type="DateTime" Precision="3" />
-          <Property Name="createdByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="updationDate" Type="DateTime" Precision="3" />
-          <Property Name="updatedByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tblLookUp" Relationship="Self.FK__tblTasks__typeID__395884C4" FromRole="tblTasks" ToRole="tblLookUps" />
-          <NavigationProperty Name="tblSheet" Relationship="Self.FK__tblTasks__sheetI__37703C52" FromRole="tblTasks" ToRole="tblSheets" />
-          <NavigationProperty Name="tblTasks1" Relationship="Self.FK__tblTasks__parent__3864608B" FromRole="tblTasks" ToRole="tblTasks1" />
-          <NavigationProperty Name="tblTask1" Relationship="Self.FK__tblTasks__parent__3864608B" FromRole="tblTasks1" ToRole="tblTasks" />
-          <NavigationProperty Name="tblTaskStatus" Relationship="Self.FK__tblTaskSt__taskI__3C34F16F" FromRole="tblTasks" ToRole="tblTaskStatus" />
+          <NavigationProperty Name="tblSheet" Relationship="testModel.FK__tblSheetS__sheet__339FAB6E" FromRole="tblSheetStatu" ToRole="tblSheet" />
         </EntityType>
         <EntityType Name="tblTaskStatu">
           <Key>
@@ -582,7 +545,7 @@
           <Property Name="updationDate" Type="DateTime" Precision="3" />
           <Property Name="updatedByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tblLookUp" Relationship="Self.FK__tblTaskSt__statu__3D2915A8" FromRole="tblTaskStatus" ToRole="tblLookUps" />
-          <NavigationProperty Name="tblTask" Relationship="Self.FK__tblTaskSt__taskI__3C34F16F" FromRole="tblTaskStatus" ToRole="tblTasks" />
+          <NavigationProperty Name="tblTask" Relationship="testModel.FK__tblTaskSt__taskI__3C34F16F" FromRole="tblTaskStatu" ToRole="tblTask" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
@@ -624,18 +587,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblSheets__userI__30C33EC3">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="0..1" />
-          <End Role="tblSheets" Type="Self.tblSheet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="tblSheets">
-              <PropertyRef Name="userID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__tblProjec__statu__2DE6D218">
           <End Role="tblLookUps" Type="Self.tblLookUp" Multiplicity="0..1" />
           <End Role="tblProjectsAndUsers" Type="Self.tblProjectsAndUser" Multiplicity="*" />
@@ -672,18 +623,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblTasks__typeID__395884C4">
-          <End Role="tblLookUps" Type="Self.tblLookUp" Multiplicity="0..1" />
-          <End Role="tblTasks" Type="Self.tblTask" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblLookUps">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblTasks">
-              <PropertyRef Name="typeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__tblTaskSt__statu__3D2915A8">
           <End Role="tblLookUps" Type="Self.tblLookUp" Multiplicity="0..1" />
           <End Role="tblTaskStatus" Type="Self.tblTaskStatu" Multiplicity="*" />
@@ -708,54 +647,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblSheetS__sheet__339FAB6E">
-          <End Role="tblSheets" Type="Self.tblSheet" Multiplicity="0..1" />
-          <End Role="tblSheetStatus" Type="Self.tblSheetStatu" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblSheets">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblSheetStatus">
-              <PropertyRef Name="sheetID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblTasks__sheetI__37703C52">
-          <End Role="tblSheets" Type="Self.tblSheet" Multiplicity="0..1" />
-          <End Role="tblTasks" Type="Self.tblTask" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblSheets">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblTasks">
-              <PropertyRef Name="sheetID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblTasks__parent__3864608B">
-          <End Role="tblTasks" Type="Self.tblTask" Multiplicity="0..1" />
-          <End Role="tblTasks1" Type="Self.tblTask" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblTasks">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblTasks1">
-              <PropertyRef Name="parentOF" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__tblTaskSt__taskI__3C34F16F">
-          <End Role="tblTasks" Type="Self.tblTask" Multiplicity="0..1" />
-          <End Role="tblTaskStatus" Type="Self.tblTaskStatu" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblTasks">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblTaskStatus">
-              <PropertyRef Name="taskID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="AspNetUserRoles">
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
@@ -768,9 +659,7 @@
           <EntitySet Name="tblLookUps" EntityType="Self.tblLookUp" />
           <EntitySet Name="tblProjects" EntityType="Self.tblProject" />
           <EntitySet Name="tblProjectsAndUsers" EntityType="Self.tblProjectsAndUser" />
-          <EntitySet Name="tblSheets" EntityType="Self.tblSheet" />
           <EntitySet Name="tblSheetStatus" EntityType="Self.tblSheetStatu" />
-          <EntitySet Name="tblTasks" EntityType="Self.tblTask" />
           <EntitySet Name="tblTaskStatus" EntityType="Self.tblTaskStatu" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -784,10 +673,6 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="tblProjectsAndUsers" EntitySet="tblProjectsAndUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblSheets__userI__30C33EC3" Association="Self.FK__tblSheets__userI__30C33EC3">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="tblSheets" EntitySet="tblSheets" />
-          </AssociationSet>
           <AssociationSet Name="FK__tblProjec__statu__2DE6D218" Association="Self.FK__tblProjec__statu__2DE6D218">
             <End Role="tblLookUps" EntitySet="tblLookUps" />
             <End Role="tblProjectsAndUsers" EntitySet="tblProjectsAndUsers" />
@@ -800,10 +685,6 @@
             <End Role="tblLookUps" EntitySet="tblLookUps" />
             <End Role="tblSheetStatus" EntitySet="tblSheetStatus" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblTasks__typeID__395884C4" Association="Self.FK__tblTasks__typeID__395884C4">
-            <End Role="tblLookUps" EntitySet="tblLookUps" />
-            <End Role="tblTasks" EntitySet="tblTasks" />
-          </AssociationSet>
           <AssociationSet Name="FK__tblTaskSt__statu__3D2915A8" Association="Self.FK__tblTaskSt__statu__3D2915A8">
             <End Role="tblLookUps" EntitySet="tblLookUps" />
             <End Role="tblTaskStatus" EntitySet="tblTaskStatus" />
@@ -812,27 +693,145 @@
             <End Role="tblProjects" EntitySet="tblProjects" />
             <End Role="tblProjectsAndUsers" EntitySet="tblProjectsAndUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblSheetS__sheet__339FAB6E" Association="Self.FK__tblSheetS__sheet__339FAB6E">
-            <End Role="tblSheets" EntitySet="tblSheets" />
-            <End Role="tblSheetStatus" EntitySet="tblSheetStatus" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblTasks__sheetI__37703C52" Association="Self.FK__tblTasks__sheetI__37703C52">
-            <End Role="tblSheets" EntitySet="tblSheets" />
-            <End Role="tblTasks" EntitySet="tblTasks" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblTasks__parent__3864608B" Association="Self.FK__tblTasks__parent__3864608B">
-            <End Role="tblTasks" EntitySet="tblTasks" />
-            <End Role="tblTasks1" EntitySet="tblTasks" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblTaskSt__taskI__3C34F16F" Association="Self.FK__tblTaskSt__taskI__3C34F16F">
-            <End Role="tblTasks" EntitySet="tblTasks" />
-            <End Role="tblTaskStatus" EntitySet="tblTaskStatus" />
-          </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <EntitySet Name="tblSheets" EntityType="testModel.tblSheet" />
+          <AssociationSet Name="FK__tblSheets__userI__30C33EC3" Association="testModel.FK__tblSheets__userI__30C33EC3">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="tblSheet" EntitySet="tblSheets" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSheetS__sheet__339FAB6E" Association="testModel.FK__tblSheetS__sheet__339FAB6E">
+            <End Role="tblSheet" EntitySet="tblSheets" />
+            <End Role="tblSheetStatu" EntitySet="tblSheetStatus" />
+          </AssociationSet>
+          <EntitySet Name="tblTasks" EntityType="testModel.tblTask" />
+          <AssociationSet Name="FK__tblTasks__typeID__395884C4" Association="testModel.FK__tblTasks__typeID__395884C4">
+            <End Role="tblLookUp" EntitySet="tblLookUps" />
+            <End Role="tblTask" EntitySet="tblTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblTasks__sheetI__37703C52" Association="testModel.FK__tblTasks__sheetI__37703C52">
+            <End Role="tblSheet" EntitySet="tblSheets" />
+            <End Role="tblTask" EntitySet="tblTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblTasks__parent__3864608B" Association="testModel.FK__tblTasks__parent__3864608B">
+            <End Role="tblTask" EntitySet="tblTasks" />
+            <End Role="tblTask1" EntitySet="tblTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblTaskSt__taskI__3C34F16F" Association="testModel.FK__tblTaskSt__taskI__3C34F16F">
+            <End Role="tblTask" EntitySet="tblTasks" />
+            <End Role="tblTaskStatu" EntitySet="tblTaskStatus" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="tblSheet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="weekNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="creationDate" Type="DateTime" Precision="3" />
+          <Property Name="createdByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="updationDate" Type="DateTime" Precision="3" />
+          <Property Name="updatedByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="testModel.FK__tblSheets__userI__30C33EC3" FromRole="tblSheet" ToRole="AspNetUser" />
+          <NavigationProperty Name="tblSheetStatus" Relationship="testModel.FK__tblSheetS__sheet__339FAB6E" FromRole="tblSheet" ToRole="tblSheetStatu" />
+          <NavigationProperty Name="tblTasks" Relationship="testModel.FK__tblTasks__sheetI__37703C52" FromRole="tblSheet" ToRole="tblTask" />
+        </EntityType>
+        <Association Name="FK__tblSheets__userI__30C33EC3">
+          <End Type="testModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+          <End Type="testModel.tblSheet" Role="tblSheet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblSheet">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblSheetS__sheet__339FAB6E">
+          <End Type="testModel.tblSheet" Role="tblSheet" Multiplicity="0..1" />
+          <End Type="testModel.tblSheetStatu" Role="tblSheetStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSheet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblSheetStatu">
+              <PropertyRef Name="sheetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblTask">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sheetID" Type="Int32" />
+          <Property Name="parentOF" Type="Int32" />
+          <Property Name="typeID" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="hours" Type="Int32" />
+          <Property Name="creationDate" Type="DateTime" Precision="3" />
+          <Property Name="createdByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="updationDate" Type="DateTime" Precision="3" />
+          <Property Name="updatedByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblLookUp" Relationship="testModel.FK__tblTasks__typeID__395884C4" FromRole="tblTask" ToRole="tblLookUp" />
+          <NavigationProperty Name="tblSheet" Relationship="testModel.FK__tblTasks__sheetI__37703C52" FromRole="tblTask" ToRole="tblSheet" />
+          <NavigationProperty Name="tblTasks1" Relationship="testModel.FK__tblTasks__parent__3864608B" FromRole="tblTask" ToRole="tblTask1" />
+          <NavigationProperty Name="tblTask1" Relationship="testModel.FK__tblTasks__parent__3864608B" FromRole="tblTask1" ToRole="tblTask" />
+          <NavigationProperty Name="tblTaskStatus" Relationship="testModel.FK__tblTaskSt__taskI__3C34F16F" FromRole="tblTask" ToRole="tblTaskStatu" />
+        </EntityType>
+        <Association Name="FK__tblTasks__typeID__395884C4">
+          <End Type="testModel.tblLookUp" Role="tblLookUp" Multiplicity="0..1" />
+          <End Type="testModel.tblTask" Role="tblTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLookUp">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblTask">
+              <PropertyRef Name="typeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblTasks__sheetI__37703C52">
+          <End Type="testModel.tblSheet" Role="tblSheet" Multiplicity="0..1" />
+          <End Type="testModel.tblTask" Role="tblTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSheet">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblTask">
+              <PropertyRef Name="sheetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblTasks__parent__3864608B">
+          <End Type="testModel.tblTask" Role="tblTask" Multiplicity="0..1" />
+          <End Type="testModel.tblTask" Role="tblTask1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTask">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblTask1">
+              <PropertyRef Name="parentOF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblTaskSt__taskI__3C34F16F">
+          <End Type="testModel.tblTask" Role="tblTask" Multiplicity="0..1" />
+          <End Type="testModel.tblTaskStatu" Role="tblTaskStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTask">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblTaskStatu">
+              <PropertyRef Name="taskID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -920,42 +919,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblSheets">
-            <EntityTypeMapping TypeName="testModel.tblSheet">
-              <MappingFragment StoreEntitySet="tblSheets">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="userID" ColumnName="userID" />
-                <ScalarProperty Name="weekNo" ColumnName="weekNo" />
-                <ScalarProperty Name="creationDate" ColumnName="creationDate" />
-                <ScalarProperty Name="createdByID" ColumnName="createdByID" />
-                <ScalarProperty Name="updationDate" ColumnName="updationDate" />
-                <ScalarProperty Name="updatedByID" ColumnName="updatedByID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblSheetStatus">
             <EntityTypeMapping TypeName="testModel.tblSheetStatu">
               <MappingFragment StoreEntitySet="tblSheetStatus">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="sheetID" ColumnName="sheetID" />
                 <ScalarProperty Name="statusID" ColumnName="statusID" />
-                <ScalarProperty Name="creationDate" ColumnName="creationDate" />
-                <ScalarProperty Name="createdByID" ColumnName="createdByID" />
-                <ScalarProperty Name="updationDate" ColumnName="updationDate" />
-                <ScalarProperty Name="updatedByID" ColumnName="updatedByID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblTasks">
-            <EntityTypeMapping TypeName="testModel.tblTask">
-              <MappingFragment StoreEntitySet="tblTasks">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="sheetID" ColumnName="sheetID" />
-                <ScalarProperty Name="parentOF" ColumnName="parentOF" />
-                <ScalarProperty Name="typeID" ColumnName="typeID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="hours" ColumnName="hours" />
                 <ScalarProperty Name="creationDate" ColumnName="creationDate" />
                 <ScalarProperty Name="createdByID" ColumnName="createdByID" />
                 <ScalarProperty Name="updationDate" ColumnName="updationDate" />
@@ -984,6 +953,36 @@
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="tblSheets">
+            <EntityTypeMapping TypeName="testModel.tblSheet">
+              <MappingFragment StoreEntitySet="tblSheets">
+                <ScalarProperty Name="updatedByID" ColumnName="updatedByID" />
+                <ScalarProperty Name="updationDate" ColumnName="updationDate" />
+                <ScalarProperty Name="createdByID" ColumnName="createdByID" />
+                <ScalarProperty Name="creationDate" ColumnName="creationDate" />
+                <ScalarProperty Name="weekNo" ColumnName="weekNo" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTasks">
+            <EntityTypeMapping TypeName="testModel.tblTask">
+              <MappingFragment StoreEntitySet="tblTasks">
+                <ScalarProperty Name="updatedByID" ColumnName="updatedByID" />
+                <ScalarProperty Name="updationDate" ColumnName="updationDate" />
+                <ScalarProperty Name="createdByID" ColumnName="createdByID" />
+                <ScalarProperty Name="creationDate" ColumnName="creationDate" />
+                <ScalarProperty Name="hours" ColumnName="hours" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="typeID" ColumnName="typeID" />
+                <ScalarProperty Name="parentOF" ColumnName="parentOF" />
+                <ScalarProperty Name="sheetID" ColumnName="sheetID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

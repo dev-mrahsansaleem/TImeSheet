@@ -9,21 +9,57 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.DBModel;
+using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
+    [Authorize]
     public class TimeSheetController : Controller
     {
         // GET: TimeSheet
         public ActionResult Index()
         {
-            return View();
+            testEntities1 db = new testEntities1();
+            var userID = db.AspNetUsers.Where(a => a.UserName == User.Identity.Name).Select(a => a.Id).ToList()[0];
+            //var sheetID = db.tblSheets.Where(sheet => sheet.userID == userID).Select(sheet => sheet.ID).ToList()[0];
+            var sheetI = db.tblSheets.Where(sheet => sheet.userID == userID).ToList();
+            //var data = db.tblTasks.Where(task => task.sheetID == sheetID).Select(task => task.).ToList();
+            //var data=new List<tblTask>();
+
+            List<SheetViewModel> myViewObj = new List<SheetViewModel>();
+            foreach (var item in sheetI)
+            {
+                SheetViewModel temp = new SheetViewModel();
+                temp.id = item.ID;
+                temp.WeekNo = item.weekNo;
+                temp.CreatedOn = item.creationDate.Value;
+                myViewObj.Add(temp);
+            }
+            return View(myViewObj);
         }
 
         // GET: TimeSheet/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+
+            testEntities1 db = new testEntities1();
+            var sheet = db.tblSheets.Find(id);
+            ViewBag.weekNo = sheet.weekNo;
+            
+            var list = db.tblTasks.Where(a => a.sheetID == id).ToList();
+
+            List<TaskViewModel> listView = new List<TaskViewModel>();
+
+            foreach (var item in list)
+            {
+                TaskViewModel taskView = new TaskViewModel();
+                taskView.id = item.ID;
+                taskView.title = item.Title;
+                taskView.hours = item.hours.Value;
+                taskView.type = item.typeID.Value;
+                listView.Add(taskView);
+            }
+            return View(listView);
         }
 
         // GET: TimeSheet/Create
@@ -97,14 +133,12 @@ namespace WebApplication1.Controllers
                             CultureInfo ciCurr = CultureInfo.CurrentCulture;
                             var weekNum = ciCurr.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday).ToString();
                             var userID = db.AspNetUsers.Where(a => a.UserName == User.Identity.Name).Select(a => a.Id).ToList()[0];
-                            var sheetID = 0;
-                            try
+
+                            var sheetID = db.tblSheets.Where(s => s.userID == userID && s.weekNo == weekNum).FirstOrDefault();
+                            if (sheetID == null)
                             {
-                                //sheet id
-                                sheetID = db.tblSheets.Where(s => s.userID == userID && s.weekNo == weekNum).Select(s => s.ID).ToList()[0];
-                            }
-                            catch (Exception)
-                            {
+                                //no record in db
+
                                 tblSheet sheet = new tblSheet();
                                 sheet.userID = userID;
                                 sheet.weekNo = weekNum;
@@ -112,65 +146,48 @@ namespace WebApplication1.Controllers
                                 sheet.createdByID = User.Identity.Name;
                                 sheet.updationDate = DateTime.Now;
                                 sheet.updatedByID = User.Identity.Name;
+
+
+
+                                //adding tasks
+
+                                DataTable dt = result.Tables[0];
+                                for (int i = 8; i < dt.Rows.Count; i++)
+                                {
+                                    var row = dt.Rows[i];
+                                    var typename = row.ItemArray[2].ToString();
+                                    var lookups = db.tblLookUps.Where(t => t.name == typename).FirstOrDefault();
+                                    
+                                    tblTask task = new tblTask();
+                                    task.parentOF = null;
+                                    task.Title = row.ItemArray[1].ToString();
+                                    task.description = row.ItemArray[1].ToString();
+                                    task.hours = Convert.ToInt32(row.ItemArray[3].ToString());
+
+                                    task.typeID = lookups.ID;
+
+                                    task.creationDate = DateTime.Now;
+                                    task.createdByID = User.Identity.Name;
+                                    task.updationDate = DateTime.Now;
+                                    task.updatedByID = User.Identity.Name;
+                                    sheet.tblTasks.Add(task);
+                                }
                                 db.tblSheets.Add(sheet);
-                                db.SaveChanges();
-                                sheetID = db.tblSheets.Where(s => s.userID == userID && s.weekNo == weekNum).Select(s => s.ID).ToList()[0];
                             }
-
-
-
-
-
-
-                            DataTable dt = result.Tables[0];
-                            for(int i = 8; i < dt.Rows.Count; i++)
+                            else
                             {
-                                var row = dt.Rows[i];
-                                var typename = row.ItemArray[2].ToString();
-                                var list = db.tblLookUps.Where(t => t.name == typename).Select(t => t.ID);
-                                var typeID = 0;
-                                try
-                                {
-                                    typeID = list.ToList()[0];
-                                }
-                                catch (Exception)
-                                {
-                                    tblLookUp lookup = new tblLookUp();
-                                    lookup.name = typename;
-                                    lookup.cateegory = "TASK";
-                                    db.tblLookUps.Add(lookup);
-                                    list = db.tblLookUps.Where(t => t.name == typename).Select(t => t.ID);
-                                    typeID = list.ToList()[0];
-                                }
-                                tblTask task = new tblTask();
-                                task.sheetID = sheetID;
-                                task.parentOF = null;
-                                task.typeID = typeID;
-                                task.Title = row.ItemArray[1].ToString();
-                                task.description = row.ItemArray[1].ToString();
-                                task.hours = Convert.ToInt32(row.ItemArray[3].ToString());
-
-                                task.creationDate = DateTime.Now;
-                                task.createdByID = User.Identity.Name;
-                                task.updationDate = DateTime.Now;
-                                task.updatedByID = User.Identity.Name;
-
-                                db.tblTasks.Add(task);
+                                    //sheet already exist
                             }
                             db.SaveChanges();
-
-
                         }
                     }
 
                 }
-
-
-
+               
                 // TODO: Add insert logic here
                 return RedirectToAction("UploadSheet");
             }
-            catch
+            catch(Exception ex)
             {
                 return View();
             }
