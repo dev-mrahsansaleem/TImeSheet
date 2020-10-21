@@ -12,7 +12,7 @@ namespace WebApplication1.Models
         [Display(Name ="Task Title")]
         public string title { get; set; }
         [Display(Name = "Task Type")]
-        public int type { get; set; }
+        public string type { get; set; }
         [Display(Name = "Hours of working")]
         public int hours { get; set; }
     }

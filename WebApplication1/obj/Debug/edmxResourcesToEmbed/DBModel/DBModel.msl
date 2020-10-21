@@ -55,20 +55,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="tblProjects">
-      <EntityTypeMapping TypeName="testModel.tblProject">
-        <MappingFragment StoreEntitySet="tblProjects">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="typeID" ColumnName="typeID" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="creationDate" ColumnName="creationDate" />
-          <ScalarProperty Name="createdByID" ColumnName="createdByID" />
-          <ScalarProperty Name="updationDate" ColumnName="updationDate" />
-          <ScalarProperty Name="updatedByID" ColumnName="updatedByID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tblProjectsAndUsers">
       <EntityTypeMapping TypeName="testModel.tblProjectsAndUser">
         <MappingFragment StoreEntitySet="tblProjectsAndUsers">
@@ -142,6 +128,20 @@
           <ScalarProperty Name="typeID" ColumnName="typeID" />
           <ScalarProperty Name="parentOF" ColumnName="parentOF" />
           <ScalarProperty Name="sheetID" ColumnName="sheetID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblProjects">
+      <EntityTypeMapping TypeName="testModel.tblProject">
+        <MappingFragment StoreEntitySet="tblProjects">
+          <ScalarProperty Name="updatedByID" ColumnName="updatedByID" />
+          <ScalarProperty Name="updationDate" ColumnName="updationDate" />
+          <ScalarProperty Name="createdByID" ColumnName="createdByID" />
+          <ScalarProperty Name="creationDate" ColumnName="creationDate" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="typeID" ColumnName="typeID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

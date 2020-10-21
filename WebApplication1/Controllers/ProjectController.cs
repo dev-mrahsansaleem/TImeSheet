@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication1.DBModel;
+using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
 {
@@ -15,8 +16,17 @@ namespace WebApplication1.Controllers
         {
             testEntities1 db = new testEntities1();
             var data = db.tblProjects.ToList();
-            ViewBag.data = data;
-            return View(data);
+            List<ProjectViewModel> vmData = new List<ProjectViewModel>();
+            foreach (var item in data)
+            {
+                ProjectViewModel x = new ProjectViewModel();
+                x.Id = item.ID;
+                x.type = db.tblLookUps.Where(e=>e.ID == item.typeID.Value).Select(e => e.name).ToList()[0];
+                x.name = item.name;
+                vmData.Add(x);
+
+            }
+            return View(vmData);
         }
 
         // GET: Project/Details/5
@@ -41,16 +51,15 @@ namespace WebApplication1.Controllers
         // POST: Project/Create
         [HttpPost]
         [Authorize]
-        public ActionResult Create(ProjectViewModel collection)
+        public ActionResult Create(tblProject collection)
         {
             try
             {
                 // TODO: Add insert logic here
                 testEntities1 db = new testEntities1();
                 tblProject p = new tblProject();
-                p.ID = 45;
                 p.name = collection.name;
-                p.typeID = collection.typeId;
+                p.typeID = collection.typeID;
                 p.description = collection.description;
                 var name = User.Identity.Name;
                 p.creationDate = DateTime.Now;
@@ -63,7 +72,7 @@ namespace WebApplication1.Controllers
 
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception e)
             {
                 return View();
             }

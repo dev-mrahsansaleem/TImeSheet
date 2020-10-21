@@ -10,20 +10,17 @@
         <EntityTypeShape EntityType="testModel.AspNetUserLogin" Width="1.5" PointX="14" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="testModel.AspNetUser" Width="1.5" PointX="11.25" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="testModel.tblLookUp" Width="1.5" PointX="0.5" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="testModel.tblProject" Width="1.5" PointX="2.625" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="testModel.tblProjectsAndUser" Width="1.5" PointX="4.75" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="testModel.tblSheetStatu" Width="1.5" PointX="11.5" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="testModel.tblTaskStatu" Width="1.5" PointX="8.875" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="testModel.tblTaskStatu" Width="1.5" PointX="7.375" PointY="3.75" IsExpanded="true" />
         <AssociationConnector Association="testModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="testModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="testModel.FK__tblProjec__userI__2BFE89A6" ManuallyRouted="false" />
         <AssociationConnector Association="testModel.FK__tblProjec__statu__2DE6D218" ManuallyRouted="false" >
         </AssociationConnector>
-        <AssociationConnector Association="testModel.FK__tblProjec__typeI__29221CFB" ManuallyRouted="false" />
         <AssociationConnector Association="testModel.FK__tblSheetS__statu__3493CFA7" ManuallyRouted="false" >
         </AssociationConnector>
         <AssociationConnector Association="testModel.FK__tblTaskSt__statu__3D2915A8" ManuallyRouted="false" />
-        <AssociationConnector Association="testModel.FK__tblProjec__proje__2CF2ADDF" ManuallyRouted="false" />
         <AssociationConnector Association="testModel.AspNetUserRoles" ManuallyRouted="false" />
         <EntityTypeShape EntityType="testModel.tblSheet" Width="1.5" PointX="13.5" PointY="9.375" />
         <AssociationConnector Association="testModel.FK__tblSheets__userI__30C33EC3" />
@@ -33,7 +30,10 @@
         <AssociationConnector Association="testModel.FK__tblTasks__sheetI__37703C52" />
         <AssociationConnector Association="testModel.FK__tblTasks__parent__3864608B" />
         <AssociationConnector Association="testModel.FK__tblTaskSt__taskI__3C34F16F" />
-      </Diagram>
+        <EntityTypeShape EntityType="testModel.tblProject" Width="1.5" PointX="2.75" PointY="6.25" />
+        <AssociationConnector Association="testModel.FK__tblProjec__typeI__29221CFB" />
+        <AssociationConnector Association="testModel.FK__tblProjec__proje__2CF2ADDF" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

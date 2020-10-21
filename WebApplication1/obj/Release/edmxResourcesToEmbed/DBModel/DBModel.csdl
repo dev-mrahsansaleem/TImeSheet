@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="testModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="tblProjectsAndUsers" Relationship="Self.FK__tblProjec__userI__2BFE89A6" FromRole="AspNetUsers" ToRole="tblProjectsAndUsers" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+    <NavigationProperty Name="tblSheets" Relationship="testModel.FK__tblSheets__userI__30C33EC3" FromRole="AspNetUser" ToRole="tblSheet" />
+  </EntityType>
+  <EntityType Name="tblLookUp">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="cateegory" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tblProjectsAndUsers" Relationship="Self.FK__tblProjec__statu__2DE6D218" FromRole="tblLookUps" ToRole="tblProjectsAndUsers" />
+    <NavigationProperty Name="tblSheetStatus" Relationship="Self.FK__tblSheetS__statu__3493CFA7" FromRole="tblLookUps" ToRole="tblSheetStatus" />
+    <NavigationProperty Name="tblTaskStatus" Relationship="Self.FK__tblTaskSt__statu__3D2915A8" FromRole="tblLookUps" ToRole="tblTaskStatus" />
+    <NavigationProperty Name="tblTasks" Relationship="testModel.FK__tblTasks__typeID__395884C4" FromRole="tblLookUp" ToRole="tblTask" />
+    <NavigationProperty Name="tblProjects" Relationship="testModel.FK__tblProjec__typeI__29221CFB" FromRole="tblLookUp" ToRole="tblProject" />
+  </EntityType>
+  <EntityType Name="tblProjectsAndUser">
+    <Key>
+      <PropertyRef Name="userID" />
+      <PropertyRef Name="projectID" />
+    </Key>
+    <Property Name="userID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="projectID" Type="Int32" Nullable="false" />
+    <Property Name="statusID" Type="Int32" />
+    <Property Name="creationDate" Type="DateTime" Precision="3" />
+    <Property Name="createdByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="updationDate" Type="DateTime" Precision="3" />
+    <Property Name="updatedByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK__tblProjec__userI__2BFE89A6" FromRole="tblProjectsAndUsers" ToRole="AspNetUsers" />
+    <NavigationProperty Name="tblLookUp" Relationship="Self.FK__tblProjec__statu__2DE6D218" FromRole="tblProjectsAndUsers" ToRole="tblLookUps" />
+    <NavigationProperty Name="tblProject" Relationship="testModel.FK__tblProjec__proje__2CF2ADDF" FromRole="tblProjectsAndUser" ToRole="tblProject" />
+  </EntityType>
+  <EntityType Name="tblSheetStatu">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="sheetID" Type="Int32" />
+    <Property Name="statusID" Type="Int32" />
+    <Property Name="creationDate" Type="DateTime" Precision="3" />
+    <Property Name="createdByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="updationDate" Type="DateTime" Precision="3" />
+    <Property Name="updatedByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblLookUp" Relationship="Self.FK__tblSheetS__statu__3493CFA7" FromRole="tblSheetStatus" ToRole="tblLookUps" />
+    <NavigationProperty Name="tblSheet" Relationship="testModel.FK__tblSheetS__sheet__339FAB6E" FromRole="tblSheetStatu" ToRole="tblSheet" />
+  </EntityType>
+  <EntityType Name="tblTaskStatu">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="taskID" Type="Int32" />
+    <Property Name="statusID" Type="Int32" />
+    <Property Name="creationDate" Type="DateTime" Precision="3" />
+    <Property Name="createdByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="updationDate" Type="DateTime" Precision="3" />
+    <Property Name="updatedByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblLookUp" Relationship="Self.FK__tblTaskSt__statu__3D2915A8" FromRole="tblTaskStatus" ToRole="tblLookUps" />
+    <NavigationProperty Name="tblTask" Relationship="testModel.FK__tblTaskSt__taskI__3C34F16F" FromRole="tblTaskStatu" ToRole="tblTask" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblProjec__userI__2BFE89A6">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1" />
+    <End Role="tblProjectsAndUsers" Type="Self.tblProjectsAndUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblProjectsAndUsers">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblProjec__statu__2DE6D218">
+    <End Role="tblLookUps" Type="Self.tblLookUp" Multiplicity="0..1" />
+    <End Role="tblProjectsAndUsers" Type="Self.tblProjectsAndUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLookUps">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblProjectsAndUsers">
+        <PropertyRef Name="statusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblSheetS__statu__3493CFA7">
+    <End Role="tblLookUps" Type="Self.tblLookUp" Multiplicity="0..1" />
+    <End Role="tblSheetStatus" Type="Self.tblSheetStatu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLookUps">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblSheetStatus">
+        <PropertyRef Name="statusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblTaskSt__statu__3D2915A8">
+    <End Role="tblLookUps" Type="Self.tblLookUp" Multiplicity="0..1" />
+    <End Role="tblTaskStatus" Type="Self.tblTaskStatu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLookUps">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblTaskStatus">
+        <PropertyRef Name="statusID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="testEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+    <EntitySet Name="tblLookUps" EntityType="Self.tblLookUp" />
+    <EntitySet Name="tblProjectsAndUsers" EntityType="Self.tblProjectsAndUser" />
+    <EntitySet Name="tblSheetStatus" EntityType="Self.tblSheetStatu" />
+    <EntitySet Name="tblTaskStatus" EntityType="Self.tblTaskStatu" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblProjec__userI__2BFE89A6" Association="Self.FK__tblProjec__userI__2BFE89A6">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="tblProjectsAndUsers" EntitySet="tblProjectsAndUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblProjec__statu__2DE6D218" Association="Self.FK__tblProjec__statu__2DE6D218">
+      <End Role="tblLookUps" EntitySet="tblLookUps" />
+      <End Role="tblProjectsAndUsers" EntitySet="tblProjectsAndUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblSheetS__statu__3493CFA7" Association="Self.FK__tblSheetS__statu__3493CFA7">
+      <End Role="tblLookUps" EntitySet="tblLookUps" />
+      <End Role="tblSheetStatus" EntitySet="tblSheetStatus" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblTaskSt__statu__3D2915A8" Association="Self.FK__tblTaskSt__statu__3D2915A8">
+      <End Role="tblLookUps" EntitySet="tblLookUps" />
+      <End Role="tblTaskStatus" EntitySet="tblTaskStatus" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <EntitySet Name="tblSheets" EntityType="testModel.tblSheet" />
+    <AssociationSet Name="FK__tblSheets__userI__30C33EC3" Association="testModel.FK__tblSheets__userI__30C33EC3">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="tblSheet" EntitySet="tblSheets" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblSheetS__sheet__339FAB6E" Association="testModel.FK__tblSheetS__sheet__339FAB6E">
+      <End Role="tblSheet" EntitySet="tblSheets" />
+      <End Role="tblSheetStatu" EntitySet="tblSheetStatus" />
+    </AssociationSet>
+    <EntitySet Name="tblTasks" EntityType="testModel.tblTask" />
+    <AssociationSet Name="FK__tblTasks__typeID__395884C4" Association="testModel.FK__tblTasks__typeID__395884C4">
+      <End Role="tblLookUp" EntitySet="tblLookUps" />
+      <End Role="tblTask" EntitySet="tblTasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblTasks__sheetI__37703C52" Association="testModel.FK__tblTasks__sheetI__37703C52">
+      <End Role="tblSheet" EntitySet="tblSheets" />
+      <End Role="tblTask" EntitySet="tblTasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblTasks__parent__3864608B" Association="testModel.FK__tblTasks__parent__3864608B">
+      <End Role="tblTask" EntitySet="tblTasks" />
+      <End Role="tblTask1" EntitySet="tblTasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblTaskSt__taskI__3C34F16F" Association="testModel.FK__tblTaskSt__taskI__3C34F16F">
+      <End Role="tblTask" EntitySet="tblTasks" />
+      <End Role="tblTaskStatu" EntitySet="tblTaskStatus" />
+    </AssociationSet>
+    <EntitySet Name="tblProjects" EntityType="testModel.tblProject" />
+    <AssociationSet Name="FK__tblProjec__typeI__29221CFB" Association="testModel.FK__tblProjec__typeI__29221CFB">
+      <End Role="tblLookUp" EntitySet="tblLookUps" />
+      <End Role="tblProject" EntitySet="tblProjects" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblProjec__proje__2CF2ADDF" Association="testModel.FK__tblProjec__proje__2CF2ADDF">
+      <End Role="tblProject" EntitySet="tblProjects" />
+      <End Role="tblProjectsAndUser" EntitySet="tblProjectsAndUsers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="tblSheet">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="weekNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="creationDate" Type="DateTime" Precision="3" />
+    <Property Name="createdByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="updationDate" Type="DateTime" Precision="3" />
+    <Property Name="updatedByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="testModel.FK__tblSheets__userI__30C33EC3" FromRole="tblSheet" ToRole="AspNetUser" />
+    <NavigationProperty Name="tblSheetStatus" Relationship="testModel.FK__tblSheetS__sheet__339FAB6E" FromRole="tblSheet" ToRole="tblSheetStatu" />
+    <NavigationProperty Name="tblTasks" Relationship="testModel.FK__tblTasks__sheetI__37703C52" FromRole="tblSheet" ToRole="tblTask" />
+  </EntityType>
+  <Association Name="FK__tblSheets__userI__30C33EC3">
+    <End Type="testModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
+    <End Type="testModel.tblSheet" Role="tblSheet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblSheet">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblSheetS__sheet__339FAB6E">
+    <End Type="testModel.tblSheet" Role="tblSheet" Multiplicity="0..1" />
+    <End Type="testModel.tblSheetStatu" Role="tblSheetStatu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSheet">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblSheetStatu">
+        <PropertyRef Name="sheetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tblTask">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sheetID" Type="Int32" />
+    <Property Name="parentOF" Type="Int32" />
+    <Property Name="typeID" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="hours" Type="Int32" />
+    <Property Name="creationDate" Type="DateTime" Precision="3" />
+    <Property Name="createdByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="updationDate" Type="DateTime" Precision="3" />
+    <Property Name="updatedByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblLookUp" Relationship="testModel.FK__tblTasks__typeID__395884C4" FromRole="tblTask" ToRole="tblLookUp" />
+    <NavigationProperty Name="tblSheet" Relationship="testModel.FK__tblTasks__sheetI__37703C52" FromRole="tblTask" ToRole="tblSheet" />
+    <NavigationProperty Name="tblTasks1" Relationship="testModel.FK__tblTasks__parent__3864608B" FromRole="tblTask" ToRole="tblTask1" />
+    <NavigationProperty Name="tblTask1" Relationship="testModel.FK__tblTasks__parent__3864608B" FromRole="tblTask1" ToRole="tblTask" />
+    <NavigationProperty Name="tblTaskStatus" Relationship="testModel.FK__tblTaskSt__taskI__3C34F16F" FromRole="tblTask" ToRole="tblTaskStatu" />
+  </EntityType>
+  <Association Name="FK__tblTasks__typeID__395884C4">
+    <End Type="testModel.tblLookUp" Role="tblLookUp" Multiplicity="0..1" />
+    <End Type="testModel.tblTask" Role="tblTask" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLookUp">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblTask">
+        <PropertyRef Name="typeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblTasks__sheetI__37703C52">
+    <End Type="testModel.tblSheet" Role="tblSheet" Multiplicity="0..1" />
+    <End Type="testModel.tblTask" Role="tblTask" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblSheet">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblTask">
+        <PropertyRef Name="sheetID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblTasks__parent__3864608B">
+    <End Type="testModel.tblTask" Role="tblTask" Multiplicity="0..1" />
+    <End Type="testModel.tblTask" Role="tblTask1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblTask">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblTask1">
+        <PropertyRef Name="parentOF" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblTaskSt__taskI__3C34F16F">
+    <End Type="testModel.tblTask" Role="tblTask" Multiplicity="0..1" />
+    <End Type="testModel.tblTaskStatu" Role="tblTaskStatu" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblTask">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblTaskStatu">
+        <PropertyRef Name="taskID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="tblProject">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="typeID" Type="Int32" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="creationDate" Type="DateTime" Precision="3" />
+    <Property Name="createdByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="updationDate" Type="DateTime" Precision="3" />
+    <Property Name="updatedByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tblLookUp" Relationship="testModel.FK__tblProjec__typeI__29221CFB" FromRole="tblProject" ToRole="tblLookUp" />
+    <NavigationProperty Name="tblProjectsAndUsers" Relationship="testModel.FK__tblProjec__proje__2CF2ADDF" FromRole="tblProject" ToRole="tblProjectsAndUser" />
+  </EntityType>
+  <Association Name="FK__tblProjec__typeI__29221CFB">
+    <End Type="testModel.tblLookUp" Role="tblLookUp" Multiplicity="0..1" />
+    <End Type="testModel.tblProject" Role="tblProject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblLookUp">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblProject">
+        <PropertyRef Name="typeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblProjec__proje__2CF2ADDF">
+    <End Type="testModel.tblProject" Role="tblProject" Multiplicity="1" />
+    <End Type="testModel.tblProjectsAndUser" Role="tblProjectsAndUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblProject">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="tblProjectsAndUser">
+        <PropertyRef Name="projectID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

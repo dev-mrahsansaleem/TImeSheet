@@ -49,16 +49,19 @@ namespace WebApplication1.Controllers
             var list = db.tblTasks.Where(a => a.sheetID == id).ToList();
 
             List<TaskViewModel> listView = new List<TaskViewModel>();
-
+            int sum = 0;
             foreach (var item in list)
             {
                 TaskViewModel taskView = new TaskViewModel();
                 taskView.id = item.ID;
                 taskView.title = item.Title;
                 taskView.hours = item.hours.Value;
-                taskView.type = item.typeID.Value;
+                sum = sum + taskView.hours;
+                string type = db.tblLookUps.FirstOrDefault(e => e.ID == item.typeID).name;
+                taskView.type = type;
                 listView.Add(taskView);
             }
+            ViewBag.totalHours = sum;
             return View(listView);
         }
 
@@ -173,19 +176,22 @@ namespace WebApplication1.Controllers
                                     sheet.tblTasks.Add(task);
                                 }
                                 db.tblSheets.Add(sheet);
+
+                                ViewBag.msg = null;
                             }
                             else
                             {
-                                    //sheet already exist
+                                //sheet already exist
                             }
                             db.SaveChanges();
                         }
                     }
 
                 }
-               
+
                 // TODO: Add insert logic here
-                return RedirectToAction("UploadSheet");
+                return RedirectToAction("Index", "TimeSheet");
+                //return RedirectToAction("UploadSheet");
             }
             catch(Exception ex)
             {

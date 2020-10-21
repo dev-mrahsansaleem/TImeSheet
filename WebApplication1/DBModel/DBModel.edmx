@@ -68,7 +68,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="typeID" Type="int" />
           <Property Name="name" Type="varchar" MaxLength="50" />
           <Property Name="description" Type="varchar" MaxLength="500" />
@@ -483,25 +483,10 @@
           <Property Name="name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="cateegory" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblProjectsAndUsers" Relationship="Self.FK__tblProjec__statu__2DE6D218" FromRole="tblLookUps" ToRole="tblProjectsAndUsers" />
-          <NavigationProperty Name="tblProjects" Relationship="Self.FK__tblProjec__typeI__29221CFB" FromRole="tblLookUps" ToRole="tblProjects" />
           <NavigationProperty Name="tblSheetStatus" Relationship="Self.FK__tblSheetS__statu__3493CFA7" FromRole="tblLookUps" ToRole="tblSheetStatus" />
           <NavigationProperty Name="tblTaskStatus" Relationship="Self.FK__tblTaskSt__statu__3D2915A8" FromRole="tblLookUps" ToRole="tblTaskStatus" />
           <NavigationProperty Name="tblTasks" Relationship="testModel.FK__tblTasks__typeID__395884C4" FromRole="tblLookUp" ToRole="tblTask" />
-        </EntityType>
-        <EntityType Name="tblProject">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="typeID" Type="Int32" />
-          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="creationDate" Type="DateTime" Precision="3" />
-          <Property Name="createdByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="updationDate" Type="DateTime" Precision="3" />
-          <Property Name="updatedByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="tblLookUp" Relationship="Self.FK__tblProjec__typeI__29221CFB" FromRole="tblProjects" ToRole="tblLookUps" />
-          <NavigationProperty Name="tblProjectsAndUsers" Relationship="Self.FK__tblProjec__proje__2CF2ADDF" FromRole="tblProjects" ToRole="tblProjectsAndUsers" />
+          <NavigationProperty Name="tblProjects" Relationship="testModel.FK__tblProjec__typeI__29221CFB" FromRole="tblLookUp" ToRole="tblProject" />
         </EntityType>
         <EntityType Name="tblProjectsAndUser">
           <Key>
@@ -517,7 +502,7 @@
           <Property Name="updatedByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUser" Relationship="Self.FK__tblProjec__userI__2BFE89A6" FromRole="tblProjectsAndUsers" ToRole="AspNetUsers" />
           <NavigationProperty Name="tblLookUp" Relationship="Self.FK__tblProjec__statu__2DE6D218" FromRole="tblProjectsAndUsers" ToRole="tblLookUps" />
-          <NavigationProperty Name="tblProject" Relationship="Self.FK__tblProjec__proje__2CF2ADDF" FromRole="tblProjectsAndUsers" ToRole="tblProjects" />
+          <NavigationProperty Name="tblProject" Relationship="testModel.FK__tblProjec__proje__2CF2ADDF" FromRole="tblProjectsAndUser" ToRole="tblProject" />
         </EntityType>
         <EntityType Name="tblSheetStatu">
           <Key>
@@ -599,18 +584,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblProjec__typeI__29221CFB">
-          <End Role="tblLookUps" Type="Self.tblLookUp" Multiplicity="0..1" />
-          <End Role="tblProjects" Type="Self.tblProject" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblLookUps">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblProjects">
-              <PropertyRef Name="typeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__tblSheetS__statu__3493CFA7">
           <End Role="tblLookUps" Type="Self.tblLookUp" Multiplicity="0..1" />
           <End Role="tblSheetStatus" Type="Self.tblSheetStatu" Multiplicity="*" />
@@ -635,18 +608,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblProjec__proje__2CF2ADDF">
-          <End Role="tblProjects" Type="Self.tblProject" Multiplicity="1" />
-          <End Role="tblProjectsAndUsers" Type="Self.tblProjectsAndUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblProjects">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tblProjectsAndUsers">
-              <PropertyRef Name="projectID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="AspNetUserRoles">
           <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
@@ -657,7 +618,6 @@
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
           <EntitySet Name="tblLookUps" EntityType="Self.tblLookUp" />
-          <EntitySet Name="tblProjects" EntityType="Self.tblProject" />
           <EntitySet Name="tblProjectsAndUsers" EntityType="Self.tblProjectsAndUser" />
           <EntitySet Name="tblSheetStatus" EntityType="Self.tblSheetStatu" />
           <EntitySet Name="tblTaskStatus" EntityType="Self.tblTaskStatu" />
@@ -677,10 +637,6 @@
             <End Role="tblLookUps" EntitySet="tblLookUps" />
             <End Role="tblProjectsAndUsers" EntitySet="tblProjectsAndUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblProjec__typeI__29221CFB" Association="Self.FK__tblProjec__typeI__29221CFB">
-            <End Role="tblLookUps" EntitySet="tblLookUps" />
-            <End Role="tblProjects" EntitySet="tblProjects" />
-          </AssociationSet>
           <AssociationSet Name="FK__tblSheetS__statu__3493CFA7" Association="Self.FK__tblSheetS__statu__3493CFA7">
             <End Role="tblLookUps" EntitySet="tblLookUps" />
             <End Role="tblSheetStatus" EntitySet="tblSheetStatus" />
@@ -688,10 +644,6 @@
           <AssociationSet Name="FK__tblTaskSt__statu__3D2915A8" Association="Self.FK__tblTaskSt__statu__3D2915A8">
             <End Role="tblLookUps" EntitySet="tblLookUps" />
             <End Role="tblTaskStatus" EntitySet="tblTaskStatus" />
-          </AssociationSet>
-          <AssociationSet Name="FK__tblProjec__proje__2CF2ADDF" Association="Self.FK__tblProjec__proje__2CF2ADDF">
-            <End Role="tblProjects" EntitySet="tblProjects" />
-            <End Role="tblProjectsAndUsers" EntitySet="tblProjectsAndUsers" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
@@ -722,6 +674,15 @@
           <AssociationSet Name="FK__tblTaskSt__taskI__3C34F16F" Association="testModel.FK__tblTaskSt__taskI__3C34F16F">
             <End Role="tblTask" EntitySet="tblTasks" />
             <End Role="tblTaskStatu" EntitySet="tblTaskStatus" />
+          </AssociationSet>
+          <EntitySet Name="tblProjects" EntityType="testModel.tblProject" />
+          <AssociationSet Name="FK__tblProjec__typeI__29221CFB" Association="testModel.FK__tblProjec__typeI__29221CFB">
+            <End Role="tblLookUp" EntitySet="tblLookUps" />
+            <End Role="tblProject" EntitySet="tblProjects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblProjec__proje__2CF2ADDF" Association="testModel.FK__tblProjec__proje__2CF2ADDF">
+            <End Role="tblProject" EntitySet="tblProjects" />
+            <End Role="tblProjectsAndUser" EntitySet="tblProjectsAndUsers" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="tblSheet">
@@ -832,6 +793,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tblProject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="typeID" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="creationDate" Type="DateTime" Precision="3" />
+          <Property Name="createdByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="updationDate" Type="DateTime" Precision="3" />
+          <Property Name="updatedByID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblLookUp" Relationship="testModel.FK__tblProjec__typeI__29221CFB" FromRole="tblProject" ToRole="tblLookUp" />
+          <NavigationProperty Name="tblProjectsAndUsers" Relationship="testModel.FK__tblProjec__proje__2CF2ADDF" FromRole="tblProject" ToRole="tblProjectsAndUser" />
+        </EntityType>
+        <Association Name="FK__tblProjec__typeI__29221CFB">
+          <End Type="testModel.tblLookUp" Role="tblLookUp" Multiplicity="0..1" />
+          <End Type="testModel.tblProject" Role="tblProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblLookUp">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblProject">
+              <PropertyRef Name="typeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblProjec__proje__2CF2ADDF">
+          <End Type="testModel.tblProject" Role="tblProject" Multiplicity="1" />
+          <End Type="testModel.tblProjectsAndUser" Role="tblProjectsAndUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProject">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tblProjectsAndUser">
+              <PropertyRef Name="projectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -889,20 +889,6 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="cateegory" ColumnName="cateegory" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblProjects">
-            <EntityTypeMapping TypeName="testModel.tblProject">
-              <MappingFragment StoreEntitySet="tblProjects">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="typeID" ColumnName="typeID" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="description" ColumnName="description" />
-                <ScalarProperty Name="creationDate" ColumnName="creationDate" />
-                <ScalarProperty Name="createdByID" ColumnName="createdByID" />
-                <ScalarProperty Name="updationDate" ColumnName="updationDate" />
-                <ScalarProperty Name="updatedByID" ColumnName="updatedByID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -979,6 +965,20 @@
                 <ScalarProperty Name="typeID" ColumnName="typeID" />
                 <ScalarProperty Name="parentOF" ColumnName="parentOF" />
                 <ScalarProperty Name="sheetID" ColumnName="sheetID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProjects">
+            <EntityTypeMapping TypeName="testModel.tblProject">
+              <MappingFragment StoreEntitySet="tblProjects">
+                <ScalarProperty Name="updatedByID" ColumnName="updatedByID" />
+                <ScalarProperty Name="updationDate" ColumnName="updationDate" />
+                <ScalarProperty Name="createdByID" ColumnName="createdByID" />
+                <ScalarProperty Name="creationDate" ColumnName="creationDate" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="typeID" ColumnName="typeID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
