@@ -24,7 +24,7 @@ namespace WebApplication1.Controllers
             //var sheetID = db.tblSheets.Where(sheet => sheet.userID == userID).Select(sheet => sheet.ID).ToList()[0];
             var sheetI = db.tblSheets.Where(sheet => sheet.userID == userID).ToList();
             //var data = db.tblTasks.Where(task => task.sheetID == sheetID).Select(task => task.).ToList();
-            //var data=new List<tblTask>();
+            //var data= new List<tblTask>();
 
             List<SheetViewModel> myViewObj = new List<SheetViewModel>();
             foreach (var item in sheetI)
@@ -32,6 +32,7 @@ namespace WebApplication1.Controllers
                 SheetViewModel temp = new SheetViewModel();
                 temp.id = item.ID;
                 temp.WeekNo = item.weekNo;
+                temp.Title = item.Title;
                 temp.CreatedOn = item.creationDate.Value;
                 myViewObj.Add(temp);
             }
@@ -41,11 +42,10 @@ namespace WebApplication1.Controllers
         // GET: TimeSheet/Details/5
         public ActionResult Details(int id)
         {
-
             testEntities1 db = new testEntities1();
             var sheet = db.tblSheets.Find(id);
             ViewBag.weekNo = sheet.weekNo;
-            
+
             var list = db.tblTasks.Where(a => a.sheetID == id).ToList();
 
             List<TaskViewModel> listView = new List<TaskViewModel>();
@@ -84,17 +84,14 @@ namespace WebApplication1.Controllers
         {
             try
             {
-
                 if (ModelState.IsValid)
                 {
-
                     string filePath = string.Empty;
                     if (Request != null)
                     {
                         HttpPostedFileBase file = Request.Files["FileUpload1"];
                         if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
                         {
-
                             string fileName = file.FileName;
                             string fileContentType = file.ContentType;
                             string path = Server.MapPath("~/Uploads/");
@@ -106,7 +103,7 @@ namespace WebApplication1.Controllers
                             string extension = Path.GetExtension(file.FileName);
                             file.SaveAs(filePath);
                             Stream stream = file.InputStream;
-                            // We return the interface, so that  
+                            // We return the interface, so that
                             IExcelDataReader reader = null;
                             if (file.FileName.EndsWith(".xls"))
                             {
@@ -124,7 +121,7 @@ namespace WebApplication1.Controllers
                             //reader.IsFirstRowAsColumnNames = true;
                             DataSet result = reader.AsDataSet();
                             reader.Close();
-                            //delete the file from physical path after reading   
+                            //delete the file from physical path after reading
                             string filedetails = path + fileName;
                             FileInfo fileinfo = new FileInfo(filedetails);
                             if (fileinfo.Exists)
@@ -141,26 +138,25 @@ namespace WebApplication1.Controllers
                             if (sheetID == null)
                             {
                                 //no record in db
+                                DataTable dt = result.Tables[0];
 
                                 tblSheet sheet = new tblSheet();
                                 sheet.userID = userID;
                                 sheet.weekNo = weekNum;
+                                sheet.Title = dt.Rows[3].ItemArray[2] + "_" + new DateTime().ToString();
                                 sheet.creationDate = DateTime.Now;
                                 sheet.createdByID = User.Identity.Name;
                                 sheet.updationDate = DateTime.Now;
                                 sheet.updatedByID = User.Identity.Name;
 
-
-
                                 //adding tasks
 
-                                DataTable dt = result.Tables[0];
                                 for (int i = 8; i < dt.Rows.Count; i++)
                                 {
                                     var row = dt.Rows[i];
                                     var typename = row.ItemArray[2].ToString();
                                     var lookups = db.tblLookUps.Where(t => t.name == typename).FirstOrDefault();
-                                    
+
                                     tblTask task = new tblTask();
                                     task.parentOF = null;
                                     task.Title = row.ItemArray[1].ToString();
@@ -177,7 +173,7 @@ namespace WebApplication1.Controllers
                                 }
                                 db.tblSheets.Add(sheet);
 
-                                ViewBag.msg = null;
+                                ViewBag.msg = "success";
                             }
                             else
                             {
@@ -186,14 +182,13 @@ namespace WebApplication1.Controllers
                             db.SaveChanges();
                         }
                     }
-
                 }
 
                 // TODO: Add insert logic here
                 return RedirectToAction("Index", "TimeSheet");
                 //return RedirectToAction("UploadSheet");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return View();
             }

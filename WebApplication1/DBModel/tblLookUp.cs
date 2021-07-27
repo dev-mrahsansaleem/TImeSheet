@@ -18,10 +18,10 @@ namespace WebApplication1.DBModel
         public tblLookUp()
         {
             this.tblProjectsAndUsers = new HashSet<tblProjectsAndUser>();
-            this.tblSheetStatus = new HashSet<tblSheetStatu>();
-            this.tblTaskStatus = new HashSet<tblTaskStatu>();
-            this.tblTasks = new HashSet<tblTask>();
             this.tblProjects = new HashSet<tblProject>();
+            this.tblSheetStatus = new HashSet<tblSheetStatu>();
+            this.tblTasks = new HashSet<tblTask>();
+            this.tblTaskStatus = new HashSet<tblTaskStatu>();
         }
     
         public int ID { get; set; }
@@ -31,12 +31,12 @@ namespace WebApplication1.DBModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblProjectsAndUser> tblProjectsAndUsers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblSheetStatu> tblSheetStatus { get; set; }
+        public virtual ICollection<tblProject> tblProjects { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblTaskStatu> tblTaskStatus { get; set; }
+        public virtual ICollection<tblSheetStatu> tblSheetStatus { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblTask> tblTasks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblProject> tblProjects { get; set; }
+        public virtual ICollection<tblTaskStatu> tblTaskStatus { get; set; }
     }
 }

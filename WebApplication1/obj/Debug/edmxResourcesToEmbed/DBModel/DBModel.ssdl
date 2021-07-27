@@ -96,6 +96,7 @@
     <Property Name="createdByID" Type="nvarchar" MaxLength="128" />
     <Property Name="updationDate" Type="datetime" />
     <Property Name="updatedByID" Type="nvarchar" MaxLength="128" />
+    <Property Name="Title" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="tblSheetStatus">
     <Key>
@@ -149,7 +150,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tblProjec__statu__2DE6D218">
+  <Association Name="FK__tblProjec__statu__412EB0B6">
     <End Role="tblLookUps" Type="Self.tblLookUps" Multiplicity="0..1" />
     <End Role="tblProjectsAndUsers" Type="Self.tblProjectsAndUsers" Multiplicity="*" />
     <ReferentialConstraint>
@@ -173,7 +174,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tblProjec__userI__2BFE89A6">
+  <Association Name="FK__tblProjec__userI__4222D4EF">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
     <End Role="tblProjectsAndUsers" Type="Self.tblProjectsAndUsers" Multiplicity="*" />
     <ReferentialConstraint>
@@ -197,7 +198,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tblSheetS__statu__3493CFA7">
+  <Association Name="FK__tblSheetS__statu__44FF419A">
     <End Role="tblLookUps" Type="Self.tblLookUps" Multiplicity="0..1" />
     <End Role="tblSheetStatus" Type="Self.tblSheetStatus" Multiplicity="*" />
     <ReferentialConstraint>
@@ -257,7 +258,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__tblTaskSt__statu__3D2915A8">
+  <Association Name="FK__tblTaskSt__statu__48CFD27E">
     <End Role="tblLookUps" Type="Self.tblLookUps" Multiplicity="0..1" />
     <End Role="tblTaskStatus" Type="Self.tblTaskStatus" Multiplicity="*" />
     <ReferentialConstraint>
@@ -354,7 +355,7 @@
       <End Role="tblProjects" EntitySet="tblProjects" />
       <End Role="tblProjectsAndUsers" EntitySet="tblProjectsAndUsers" />
     </AssociationSet>
-    <AssociationSet Name="FK__tblProjec__statu__2DE6D218" Association="Self.FK__tblProjec__statu__2DE6D218">
+    <AssociationSet Name="FK__tblProjec__statu__412EB0B6" Association="Self.FK__tblProjec__statu__412EB0B6">
       <End Role="tblLookUps" EntitySet="tblLookUps" />
       <End Role="tblProjectsAndUsers" EntitySet="tblProjectsAndUsers" />
     </AssociationSet>
@@ -362,7 +363,7 @@
       <End Role="tblLookUps" EntitySet="tblLookUps" />
       <End Role="tblProjects" EntitySet="tblProjects" />
     </AssociationSet>
-    <AssociationSet Name="FK__tblProjec__userI__2BFE89A6" Association="Self.FK__tblProjec__userI__2BFE89A6">
+    <AssociationSet Name="FK__tblProjec__userI__4222D4EF" Association="Self.FK__tblProjec__userI__4222D4EF">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="tblProjectsAndUsers" EntitySet="tblProjectsAndUsers" />
     </AssociationSet>
@@ -370,7 +371,7 @@
       <End Role="tblSheets" EntitySet="tblSheets" />
       <End Role="tblSheetStatus" EntitySet="tblSheetStatus" />
     </AssociationSet>
-    <AssociationSet Name="FK__tblSheetS__statu__3493CFA7" Association="Self.FK__tblSheetS__statu__3493CFA7">
+    <AssociationSet Name="FK__tblSheetS__statu__44FF419A" Association="Self.FK__tblSheetS__statu__44FF419A">
       <End Role="tblLookUps" EntitySet="tblLookUps" />
       <End Role="tblSheetStatus" EntitySet="tblSheetStatus" />
     </AssociationSet>
@@ -390,7 +391,7 @@
       <End Role="tblLookUps" EntitySet="tblLookUps" />
       <End Role="tblTasks" EntitySet="tblTasks" />
     </AssociationSet>
-    <AssociationSet Name="FK__tblTaskSt__statu__3D2915A8" Association="Self.FK__tblTaskSt__statu__3D2915A8">
+    <AssociationSet Name="FK__tblTaskSt__statu__48CFD27E" Association="Self.FK__tblTaskSt__statu__48CFD27E">
       <End Role="tblLookUps" EntitySet="tblLookUps" />
       <End Role="tblTaskStatus" EntitySet="tblTaskStatus" />
     </AssociationSet>

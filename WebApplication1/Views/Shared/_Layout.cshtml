@@ -6,7 +6,6 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -22,13 +21,38 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
+                    @*<li>@Html.ActionLink("ProjectCreate", "Create", "Project")</li>
+                        <li>@Html.ActionLink("Projects", "Index", "Project")</li>*@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("ProjectCreate", "Create", "Project")</li>
-                    <li>@Html.ActionLink("Projects", "Index", "Project")</li>
-                    <li>@Html.ActionLink("Upload Sheet", "UploadSheet", "TimeSheet")</li>
-                    <li>@Html.ActionLink("Sheet", "Index", "TimeSheet")</li>
-                    <li></li>
+
+                    <li>
+                        @{
+                            if (User.Identity.Name != "Admin1122@admin.com")
+                            {
+                                @Html.ActionLink("Upload Sheet", "UploadSheet", "TimeSheet")
+
+                            }
+                        }
+                    </li>
+                    <li>
+                        @{
+                            if (User.Identity.Name != "Admin1122@admin.com")
+                            {
+                                @Html.ActionLink("Sheet", "Index", "TimeSheet")
+
+                            }
+                        }
+                    </li>
+                    <li>
+                        @{
+                            if (User.Identity.Name == "Admin1122@admin.com")
+                            {
+                                @Html.ActionLink("View All Sheets", "Index", "Admin")
+
+                            }
+                        }
+                    </li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

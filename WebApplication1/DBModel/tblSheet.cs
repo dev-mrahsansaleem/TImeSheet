@@ -28,6 +28,7 @@ namespace WebApplication1.DBModel
         public string createdByID { get; set; }
         public Nullable<System.DateTime> updationDate { get; set; }
         public string updatedByID { get; set; }
+        public string Title { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

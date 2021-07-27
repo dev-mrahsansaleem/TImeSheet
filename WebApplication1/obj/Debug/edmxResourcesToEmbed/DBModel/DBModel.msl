@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="testModelStoreContainer" CdmEntityContainer="testEntities1">
+  <EntityContainerMapping StorageEntityContainer="testModelStoreContainer" CdmEntityContainer="testEntities">
     <EntitySetMapping Name="AspNetRoles">
       <EntityTypeMapping TypeName="testModel.AspNetRole">
         <MappingFragment StoreEntitySet="AspNetRoles">
@@ -55,6 +55,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tblProjects">
+      <EntityTypeMapping TypeName="testModel.tblProject">
+        <MappingFragment StoreEntitySet="tblProjects">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="typeID" ColumnName="typeID" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="creationDate" ColumnName="creationDate" />
+          <ScalarProperty Name="createdByID" ColumnName="createdByID" />
+          <ScalarProperty Name="updationDate" ColumnName="updationDate" />
+          <ScalarProperty Name="updatedByID" ColumnName="updatedByID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="tblProjectsAndUsers">
       <EntityTypeMapping TypeName="testModel.tblProjectsAndUser">
         <MappingFragment StoreEntitySet="tblProjectsAndUsers">
@@ -68,12 +82,43 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="tblSheets">
+      <EntityTypeMapping TypeName="testModel.tblSheet">
+        <MappingFragment StoreEntitySet="tblSheets">
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="weekNo" ColumnName="weekNo" />
+          <ScalarProperty Name="creationDate" ColumnName="creationDate" />
+          <ScalarProperty Name="createdByID" ColumnName="createdByID" />
+          <ScalarProperty Name="updationDate" ColumnName="updationDate" />
+          <ScalarProperty Name="updatedByID" ColumnName="updatedByID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="tblSheetStatus">
       <EntityTypeMapping TypeName="testModel.tblSheetStatu">
         <MappingFragment StoreEntitySet="tblSheetStatus">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="sheetID" ColumnName="sheetID" />
           <ScalarProperty Name="statusID" ColumnName="statusID" />
+          <ScalarProperty Name="creationDate" ColumnName="creationDate" />
+          <ScalarProperty Name="createdByID" ColumnName="createdByID" />
+          <ScalarProperty Name="updationDate" ColumnName="updationDate" />
+          <ScalarProperty Name="updatedByID" ColumnName="updatedByID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblTasks">
+      <EntityTypeMapping TypeName="testModel.tblTask">
+        <MappingFragment StoreEntitySet="tblTasks">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="sheetID" ColumnName="sheetID" />
+          <ScalarProperty Name="parentOF" ColumnName="parentOF" />
+          <ScalarProperty Name="typeID" ColumnName="typeID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="hours" ColumnName="hours" />
           <ScalarProperty Name="creationDate" ColumnName="creationDate" />
           <ScalarProperty Name="createdByID" ColumnName="createdByID" />
           <ScalarProperty Name="updationDate" ColumnName="updationDate" />
@@ -102,49 +147,5 @@
         <ScalarProperty Name="Id" ColumnName="UserId" />
       </EndProperty>
     </AssociationSetMapping>
-    <EntitySetMapping Name="tblSheets">
-      <EntityTypeMapping TypeName="testModel.tblSheet">
-        <MappingFragment StoreEntitySet="tblSheets">
-          <ScalarProperty Name="updatedByID" ColumnName="updatedByID" />
-          <ScalarProperty Name="updationDate" ColumnName="updationDate" />
-          <ScalarProperty Name="createdByID" ColumnName="createdByID" />
-          <ScalarProperty Name="creationDate" ColumnName="creationDate" />
-          <ScalarProperty Name="weekNo" ColumnName="weekNo" />
-          <ScalarProperty Name="userID" ColumnName="userID" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tblTasks">
-      <EntityTypeMapping TypeName="testModel.tblTask">
-        <MappingFragment StoreEntitySet="tblTasks">
-          <ScalarProperty Name="updatedByID" ColumnName="updatedByID" />
-          <ScalarProperty Name="updationDate" ColumnName="updationDate" />
-          <ScalarProperty Name="createdByID" ColumnName="createdByID" />
-          <ScalarProperty Name="creationDate" ColumnName="creationDate" />
-          <ScalarProperty Name="hours" ColumnName="hours" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="Title" ColumnName="Title" />
-          <ScalarProperty Name="typeID" ColumnName="typeID" />
-          <ScalarProperty Name="parentOF" ColumnName="parentOF" />
-          <ScalarProperty Name="sheetID" ColumnName="sheetID" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="tblProjects">
-      <EntityTypeMapping TypeName="testModel.tblProject">
-        <MappingFragment StoreEntitySet="tblProjects">
-          <ScalarProperty Name="updatedByID" ColumnName="updatedByID" />
-          <ScalarProperty Name="updationDate" ColumnName="updationDate" />
-          <ScalarProperty Name="createdByID" ColumnName="createdByID" />
-          <ScalarProperty Name="creationDate" ColumnName="creationDate" />
-          <ScalarProperty Name="description" ColumnName="description" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="typeID" ColumnName="typeID" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
